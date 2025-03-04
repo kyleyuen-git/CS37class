@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/kyuen/Desktop/CS37/Lab1/Project1'
+relocations:     []
+...
