@@ -6,6 +6,10 @@ using namespace std;
 
 //function prototypes
 float matrix_power(double botDamage[], int botCount, double bossDamage);
+// Template function prototype
+template <typename T>
+T single_missile_power(T power);
+
 
 int main(){
     //initialize all variables
@@ -15,7 +19,10 @@ int main(){
     double bossDamage = 0.0;
     int missleNum = 0;
     double defenseMatrix = 0.0;
+    //declare as float even though single_missile_power can take an int or float. typecast later
+    float missilePowerRequired = 0;
 
+    //creating and opening file
     ifstream combatFile;
     combatFile.open("combat.txt");
     //check if file opened.
@@ -38,10 +45,16 @@ int main(){
     //close the file when done
     combatFile.close();
 
-    //create and assign totalDamage to the matrix_power function call
+    //create and assign matrixPowerRequired to the matrix_power function call
     //when calling a function you don't need the [] for the array parameter
-    //totalDamage initialization needs to be AFTER assigning/reading data from file
-    float totalDamage = matrix_power(botDamage, botCount, bossDamage);
+    //matrixPowerRequired initialization needs to be AFTER assigning/reading data from file
+    float matrixPowerRequired = matrix_power(botDamage, botCount, bossDamage);
+
+    //calculating missilePowerRequired
+    for (int i = 0; i<botCount; i++){
+        missilePowerRequired += single_missile_power(botDamage[i]);
+    }
+    missilePowerRequired += single_missile_power(bossDamage);
 
     //prints out all the information collected from the file and stored in the variables
     cout<<"Bot count: "<<botCount<<"\n";
@@ -54,7 +67,9 @@ int main(){
     cout<<"Missle number: "<<missleNum<<"\n";
     cout<<"Defense Matrix: "<<defenseMatrix<<"\n";
 
-    cout<<"Total Damage: "<<totalDamage<<"\n";
+    cout<<"Matrix Power Required: "<<matrixPowerRequired<<"\n";
+    cout<<"Missile Power Required: "<<missilePowerRequired<<"\n";
+    
 
 }
 
@@ -67,6 +82,7 @@ float matrix_power(double botDamage[], int botCount, double bossDamage){
     totalDamage += (float)bossDamage;
     return totalDamage;
 }
+
 template <typename T>
 T single_missile_power(T power){
     if (power <= 15){
