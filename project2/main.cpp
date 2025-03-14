@@ -17,7 +17,7 @@ int main(){
     //botDamage[5] refers to the amount of elements in the array, not the max index
     double botDamage[5];
     double bossDamage = 0.0;
-    int missleNum = 0;
+    int missileNum = 0;
     double defenseMatrix = 0.0;
     //declare as float even though single_missile_power can take an int or float. typecast later
     float missilePowerRequired = 0;
@@ -39,7 +39,7 @@ int main(){
         combatFile>>botDamage[i];
     }
     combatFile>>bossDamage;
-    combatFile>>missleNum;
+    combatFile>>missileNum;
     combatFile>>defenseMatrix;
     
     //close the file when done
@@ -64,7 +64,7 @@ int main(){
     }
     cout<<"\n";
     cout<<"Boss damage: "<<bossDamage<<"\n";
-    cout<<"Missle number: "<<missleNum<<"\n";
+    cout<<"Missile number: "<<missileNum<<"\n";
     cout<<"Defense Matrix: "<<defenseMatrix<<"\n";
 
     cout<<"Matrix Power Required: "<<matrixPowerRequired<<"\n";
@@ -90,5 +90,11 @@ T single_missile_power(T power){
     }
     else{
         return power*5;
+    }
+}
+
+void load_dva(double &defenseMatrix, float matrixPowerRequired){
+    if(defenseMatrix<matrixPowerRequired){
+        defenseMatrix = matrixPowerRequired;
     }
 }
