@@ -6,7 +6,7 @@
 using namespace std;
 
 //function prototypes
-float matrix_power(double botDamage[], int botCount, double bossDamage);
+float matrix_power(double botPower[], int botCount, double bossPower);
 // Template function prototype
 template <typename T>
 T single_missile_power(T power);
@@ -16,9 +16,9 @@ void load_dva(int &missileNum, float missilePowerRequired);
 int main(){
     //initialize all variables
     int botCount = 0;
-    //botDamage[5] refers to the amount of elements in the array, not the max index
-    double botDamage[5];
-    double bossDamage = 0.0;
+    //botPower[5] refers to the amount of elements in the array, not the max index
+    double botPower[5];
+    double bossPower = 0.0;
     int missileNum = 0;
     double defenseMatrix = 0.0;
     //declare as float even though single_missile_power can take an int or float. typecast later
@@ -36,11 +36,11 @@ int main(){
     //assign all values in combat.txt to variable values
     //first value detected from combatFile is assigned to botCount and so forth
     combatFile>>botCount;
-    //for loop loops through botDamage array from index 0 to 4 which is equivalent to element 1 to 5
+    //for loop loops through botPower array from index 0 to 4 which is equivalent to element 1 to 5
     for(int i = 0; i<botCount; i++){
-        combatFile>>botDamage[i];
+        combatFile>>botPower[i];
     }
-    combatFile>>bossDamage;
+    combatFile>>bossPower;
     combatFile>>missileNum;
     combatFile>>defenseMatrix;
    
@@ -50,13 +50,13 @@ int main(){
     //create and assign matrixPowerRequired to the matrix_power function call
     //when calling a function you don't need the [] for the array parameter
     //matrixPowerRequired initialization needs to be AFTER assigning/reading data from file
-    float matrixPowerRequired = matrix_power(botDamage, botCount, bossDamage);
+    float matrixPowerRequired = matrix_power(botPower, botCount, bossPower);
 
     //calculating missilePowerRequired
     for (int i = 0; i<botCount; i++){
-        missilePowerRequired += single_missile_power(botDamage[i]);
+        missilePowerRequired += single_missile_power(botPower[i]);
     }
-    missilePowerRequired += single_missile_power(bossDamage);
+    missilePowerRequired += single_missile_power(bossPower);
 
     //calls the overloaded load_dva functions to update defenseMatrix and missileNum before printing them out.
     load_dva(defenseMatrix, matrixPowerRequired);
@@ -72,19 +72,19 @@ int main(){
         return 0;
     }
     //prints out the report
-    report<<"D.Va's Combat Report\nCombat with "<<botCount<<" enemy bots and one enemy boss with power "<<bossDamage<<".\nLoaded mech with "<<missileNum<<" micro missiles and the defense matrix with power "<<defenseMatrix<<".\nReady for combat!";
+    report<<"D.Va's Combat Report\nCombat with "<<botCount<<" enemy bots and one enemy boss with power "<<bossPower<<".\nLoaded mech with "<<missileNum<<" micro missiles and the defense matrix with power "<<defenseMatrix<<".\nReady for combat!";
     //closes report.txt
     report.close();
 }
 
 //matrix_power adds up the total amount of damage received 
-float matrix_power(double botDamage[], int botCount, double bossDamage){
+float matrix_power(double botPower[], int botCount, double bossPower){
     float totalDamage = 0.0;
     for (int i = 0; i<botCount; i++){
         //type conversion from double to float
-        totalDamage += (float)botDamage[i];
+        totalDamage += (float)botPower[i];
     }
-    totalDamage += (float)bossDamage;
+    totalDamage += (float)bossPower;
     return totalDamage;
 }
 

@@ -1,4 +1,4 @@
 D.Va's Combat Report
-Combat with 5 enemy bots and one enemy boss with power 87.15.
-Loaded mech with 19 micro missiles and the defense matrix with power 127.15.
+Combat with 1 enemy bots and one enemy boss with power 27.15.
+Loaded mech with 8 micro missiles and the defense matrix with power 100.
 Ready for combat!
