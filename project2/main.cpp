@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 
 //function prototypes
@@ -9,7 +10,8 @@ float matrix_power(double botDamage[], int botCount, double bossDamage);
 // Template function prototype
 template <typename T>
 T single_missile_power(T power);
-
+void load_dva(double &defenseMatrix, float matrixPowerRequired);
+void load_dva(int &missileNum, float missilePowerRequired);
 
 int main(){
     //initialize all variables
@@ -20,7 +22,7 @@ int main(){
     int missileNum = 0;
     double defenseMatrix = 0.0;
     //declare as float even though single_missile_power can take an int or float. typecast later
-    float missilePowerRequired = 0;
+    float missilePowerRequired = 0.0;
 
     //creating and opening file
     ifstream combatFile;
@@ -35,13 +37,13 @@ int main(){
     //first value detected from combatFile is assigned to botCount and so forth
     combatFile>>botCount;
     //for loop loops through botDamage array from index 0 to 4 which is equivalent to element 1 to 5
-    for(int i = 0; i<=4; i++){
+    for(int i = 0; i<botCount; i++){
         combatFile>>botDamage[i];
     }
     combatFile>>bossDamage;
     combatFile>>missileNum;
     combatFile>>defenseMatrix;
-    
+   
     //close the file when done
     combatFile.close();
 
@@ -56,23 +58,26 @@ int main(){
     }
     missilePowerRequired += single_missile_power(bossDamage);
 
-    //prints out all the information collected from the file and stored in the variables
-    cout<<"Bot count: "<<botCount<<"\n";
-    cout<<"Bot damages: ";
-    for(int i = 0; i<=4; i++){
-        cout<<botDamage[i]<<" ";
-    }
-    cout<<"\n";
-    cout<<"Boss damage: "<<bossDamage<<"\n";
-    cout<<"Missile number: "<<missileNum<<"\n";
-    cout<<"Defense Matrix: "<<defenseMatrix<<"\n";
-
-    cout<<"Matrix Power Required: "<<matrixPowerRequired<<"\n";
-    cout<<"Missile Power Required: "<<missilePowerRequired<<"\n";
+    //calls the overloaded load_dva functions to update defenseMatrix and missileNum before printing them out.
+    load_dva(defenseMatrix, matrixPowerRequired);
+    load_dva(missileNum, missilePowerRequired);
     
-
+    //creates new file of variable name report
+    ofstream report;
+    //opens variable report as a file named report.txt
+    report.open("report.txt");
+    //checks if opening report.txt failed. if it did, print "report failed to open" and return 0
+    if (report.fail()){
+        cout<<"report failed to open";
+        return 0;
+    }
+    //prints out the report
+    report<<"D.Va's Combat Report\nCombat with "<<botCount<<" enemy bots and one enemy boss with power "<<bossDamage<<".\nLoaded mech with "<<missileNum<<" micro missiles and the defense matrix with power "<<defenseMatrix<<".\nReady for combat!";
+    //closes report.txt
+    report.close();
 }
 
+//matrix_power adds up the total amount of damage received 
 float matrix_power(double botDamage[], int botCount, double bossDamage){
     float totalDamage = 0.0;
     for (int i = 0; i<botCount; i++){
@@ -83,6 +88,7 @@ float matrix_power(double botDamage[], int botCount, double bossDamage){
     return totalDamage;
 }
 
+//single_missile_power returns the power of D.Va's micro missile system
 template <typename T>
 T single_missile_power(T power){
     if (power <= 15){
@@ -93,8 +99,17 @@ T single_missile_power(T power){
     }
 }
 
+//load_dva updates the defenseMatrix to matrixPowerRequired if it is less than matrixPowerRequired
 void load_dva(double &defenseMatrix, float matrixPowerRequired){
     if(defenseMatrix<matrixPowerRequired){
         defenseMatrix = matrixPowerRequired;
+    }
+}
+
+//load_dva updates the missileNum if it is less than missilePowerRequired/30.0
+void load_dva(int &missileNum, float missilePowerRequired){
+    int neededMissiles = ceil(missilePowerRequired/30.0);
+    if(missileNum<neededMissiles){
+        missileNum = neededMissiles;
     }
 }
