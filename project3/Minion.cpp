@@ -25,3 +25,33 @@ string Minion::getName() const{
 void Minion::printMinionCount() {
     cout << minionCount << " minions created." << endl;
   }
+
+bool Minion::operator>(const Minion& other) const {
+    return this->height>other.height;
+}
+
+bool Minion::operator<(const Minion& other) const{
+    return this->height<other.height;
+}
+
+//pre-increment: ++x
+Minion& Minion::operator++(){
+    this->bananasOwned++;
+    return *this;
+}
+
+//post-increment: x++
+//uses int as dummy paramenter
+Minion Minion::operator++(int){
+    Minion temp = *this;
+    this->bananasOwned++;
+    return temp;
+}
+
+ostream& operator<<(ostream& out, const Minion& m) {
+    out << "The minion " << m.name
+        << " is " << m.height << " inches tall, has "
+        << m.eyes << " eye(s), and owns "
+        << m.bananasOwned << " banana(s).\n";
+    return out;
+}

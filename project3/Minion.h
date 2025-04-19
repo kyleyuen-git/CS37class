@@ -23,7 +23,15 @@ class Minion{
         // Static function
         static void printMinionCount();
 
-        
+        bool operator>(const Minion& other) const;
+        bool operator<(const Minion& other) const;
+
+        Minion& operator++();
+        Minion operator++(int);
+
+        friend ostream& operator<<(ostream& out, const Minion& m);
+
 };
+
 
 #endif
