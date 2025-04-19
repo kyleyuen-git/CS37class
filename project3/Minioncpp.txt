@@ -1,0 +1,60 @@
+#include "Minion.h"
+#include <iostream>
+using namespace std;
+
+// Initialize static member
+int Minion::minionCount = 0;
+
+// Constructor
+Minion::Minion(string n, float h, int e, int b) {
+    name = n;
+    height = h;
+    eyes = e;
+    bananasOwned = b;
+    minionCount++;  // increase count every time a Minion is created
+}
+
+// Getter for bananasOwned
+int Minion::getBananas() const {
+    return bananasOwned;
+}
+
+// Getter for name
+string Minion::getName() const {
+    return name;
+}
+
+// Static function to print minion count
+void Minion::printMinionCount() {
+    cout << minionCount << " minions created." << endl;
+}
+
+// Member function: pre-increment
+Minion& Minion::operator++() {
+    bananasOwned++;
+    return *this;
+}
+
+// Member function: post-increment
+Minion Minion::operator++(int) {
+    Minion temp = *this; // save original state
+    bananasOwned++;
+    return temp;         // return original state
+}
+
+// Non-member function: compare height >
+bool operator>(const Minion& m1, const Minion& m2) {
+    return m1.height > m2.height;
+}
+
+// Non-member function: compare height <
+bool operator<(const Minion& m1, const Minion& m2) {
+    return m1.height < m2.height;
+}
+
+// Non-member function: output format
+ostream& operator<<(ostream& out, const Minion& m) {
+    out << "The minion " << m.name << " is " << m.height << " inches tall, has "
+        << m.eyes << " eye(s), and owns " << m.bananasOwned << " banana(s).\n";
+    return out;
+}

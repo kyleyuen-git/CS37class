@@ -1,0 +1,38 @@
+#ifndef MINION_H
+#define MINION_H
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Minion {
+private:
+    string name;
+    float height;
+    int eyes;
+    int bananasOwned;
+
+    static int minionCount; // class-level tracker
+
+public:
+    // Constructor
+    Minion(string name, float height, int eyes, int bananasOwned);
+
+    // Getters
+    string getName() const;
+    int getBananas() const;
+
+    // Static function
+    static void printMinionCount();
+
+    // Member operator overloads
+    Minion& operator++();        // Pre-increment
+    Minion operator++(int);      // Post-increment
+
+    // Friend (non-member) operator overloads
+    friend bool operator>(const Minion& lhs, const Minion& rhs);
+    friend bool operator<(const Minion& lhs, const Minion& rhs);
+    friend ostream& operator<<(ostream& out, const Minion& m);
+};
+
+#endif // MINION_H
