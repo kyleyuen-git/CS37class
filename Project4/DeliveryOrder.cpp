@@ -20,6 +20,7 @@ DeliveryOrder::~DeliveryOrder()
     cout << "DeliveryOrder destroyed.\n";
 }
 
+//function receipt that will be overriden
 void DeliveryOrder::receipt() const
 {
     cout << "Order Detail:\n"
@@ -27,7 +28,7 @@ void DeliveryOrder::receipt() const
          << "\tDate: "  << date  << "\n"
          << "\tPhone: " << phone << "\n"
          << "\tOrder Balance: $"
-         << fixed << setprecision(2)      // show exactly two decimals
+         << fixed << setprecision(2)
          << orderBalance << endl;
 }
 
