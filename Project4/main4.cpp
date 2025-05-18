@@ -27,8 +27,7 @@ int main() {
     /* Kevin’s Boba order */
     cout << "Kevin is placing order.\n";
 
-    BobaOrder kevinOrder("Kevin", "04/20/2024", "123-456-0000",
-                         10.4f, "M Tea");
+    BobaOrder kevinOrder("Kevin", "04/20/2024", "123-456-0000", 10.4f, "M Tea");
 
     try {
         kevinOrder.addDrink("Green Tea Latte");              // default boba,1
