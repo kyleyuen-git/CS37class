@@ -1,0 +1,42 @@
+YoutubeChannel Kyle;
+    cout<<"how many subs does Kyle have? ";
+    cin>>Kyle.subscribers;
+    cin.ignore();
+    cout<<"what is the name of Kyle's channel? ";
+
+    getline(cin, Kyle.channelName);
+
+    Kyle.info();
+
+    const float pi = 3.14159;
+    cout<<pi;
+
+pointers and accessing the fourth character of a string
+    string text = "change";
+    string *j = &text;
+    cout<<*j.at(3); //doesn't work
+    cout<<text.at(3);
+
+    int one = 1000;
+    int two = 2000;
+    cout<<add(one, two)<<"\n";
+    cout<<add(4, 10);
+
+precision and default parameters
+    float x = 3.14159;
+    float y = 1.1234;
+
+    cout<<x<<endl;
+    cout<<fixed<<setprecision(2)<<x<<endl;
+    cout<<y<<endl;
+    cout<<add(x,y)<<endl;
+    cout<<add(x,y,100);
+
+pass by pointers 
+    int a = 1234;
+    int *x = &a;
+    cout<<*x<<endl;
+    
+    add(x,10); //same as add(&a,10)
+    cout<<*x<<endl;
+
